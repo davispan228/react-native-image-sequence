@@ -4,8 +4,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <React/RCTComponent.h>
 
 @interface RCTImageSequenceView : UIImageView
-
-
+@property (nonatomic, copy) RCTBubblingEventBlock onLooped;
 @end
