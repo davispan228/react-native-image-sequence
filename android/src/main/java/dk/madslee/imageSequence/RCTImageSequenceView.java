@@ -23,6 +23,7 @@ public class RCTImageSequenceView extends ImageView {
     private ArrayList<AsyncTask> activeTasks;
     private HashMap<Integer, Bitmap> bitmaps;
     private RCTResourceDrawableIdHelper resourceDrawableIdHelper;
+    private final String filePrefix = "file://";
 
     public RCTImageSequenceView(Context context) {
         super(context);
@@ -45,11 +46,15 @@ public class RCTImageSequenceView extends ImageView {
         protected Bitmap doInBackground(String... params) {
             if (this.uri.startsWith("http")) {
                 return this.loadBitmapByExternalURL(this.uri);
+            }else if (this.uri.startsWith(filePrefix)) {
+                return this.loadBitmapByLocalURL(this.uri);
             }
-
             return this.loadBitmapByLocalResource(this.uri);
         }
 
+        private Bitmap loadBitmapByLocalURL(String uri) {
+            return BitmapFactory.decodeFile(uri.substring(filePrefix.length()));
+        }
 
         private Bitmap loadBitmapByLocalResource(String uri) {
             return BitmapFactory.decodeResource(this.context.getResources(), resourceDrawableIdHelper.getResourceDrawableId(this.context, uri));
