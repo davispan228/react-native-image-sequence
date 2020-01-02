@@ -196,7 +196,7 @@ public class RCTImageSequenceView extends ImageView {
 
     public void onLooped() {
         WritableMap event = Arguments.createMap();
-        event.putString("data", "test");
+        event.putString("data", "onLooped");
         ReactContext reactContext = (ReactContext)getContext();
         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), "onLooped", event);
     }
